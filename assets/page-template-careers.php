@@ -4,18 +4,14 @@
  */
  ?>
 <?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
 <div class="easyPagesCareer-page-banner">
     <h1><?php echo the_title(); ?></h1>
 </div>
 <div class="easyPagesCareer-introduction">
   <div class="easyPagesCareer-wrapper">
-    <h2>Why choose us...</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br>
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
+    <?php echo the_content(); ?>
   </div>
 </div>
 
@@ -31,47 +27,39 @@
 <div class="easyPagesCareer-currentPositions">
     <div class="easyPagesCareer-wrapper">
         <h3>Current Positions:</h3>
+        <?php
+          $args = array(
+          	'post_type' => 'easyPages_jobs',
+            'posts_per_page' => '-1'
+          );
 
-        <ul class="current-positions">
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-          <li>
-            <a href="#" class="role-title">Ore Field Miner</a>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </li>
-        </ul>
+          $the_query = new WP_Query( $args );
 
+          // Loop Over Results
+          if ( $the_query->have_posts() ) {
+            echo '<ul class="current-positions">';
+            while ( $the_query->have_posts() ) {
+          		$the_query->the_post();
+              echo "<li>";
+              echo "<a href='". get_the_permalink()  ."' class='role-title'>". get_the_title() ."</a>";
+              echo the_excerpt();
+              echo "<a href='". get_the_permalink() ."' class='read-more-button'>Read More</a>";
+              echo "</li>";
+               }
+            echo "</ul>";
+          } else {
+            echo "<h4>We have no current vacancies.</h4>";
+           }
+          /* Restore original Post Data */
+          wp_reset_postdata();
+        ?>
     </div>
 </div>
+
+<?php endwhile; ?>
+
+<?php else : ?>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>

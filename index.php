@@ -89,12 +89,25 @@ function easyPagesJobsTemplate( $page_template )
 {
     if ( is_page( 'jobs' ) || is_page( 'careers' ) ) {
         $page_template = dirname( __FILE__ ) . '/assets/page-template-careers.php';
-        add_action( 'add_meta_boxes', 'easyPages_custom_meta'  );
     }
     return $page_template;
 }
 #
-#
+########################################################
+##### Create the single post type page for the jobs
+########################################################
+function easyPagesCustomSingle($single) {
+    global $wp_query, $post;
+    /* Checks for single template by post type */
+    if ($post->post_type == "easypages_jobs"){
+      return plugin_dir_path( __FILE__ ) . '/assets/single-job.php';
+    }else{
+      echo $post->post_type;
+    }
+    return $single;
+}
+add_filter('single_template', 'easyPagesCustomSingle');
+#########################################################
 #
 #
 #
@@ -116,15 +129,21 @@ function easyPages_jobs_Banner_Image( $post ) {
   <?php
 }
 
-
-//Add our meta boxes to the actual editor
 function easyPages_custom_meta() {
-      add_meta_box(
-      'easyPages', // $id
-       __( 'Banner Image', 'easyPages-job-banner' ), // $title
-      'easyPages_jobs_Banner_Image', // $callback
-      'page', // $page
-      'side', // $context
-      'low'
-      ); // $priority
+    add_meta_box( 'easyPages', __( 'Banner Image', 'easyPages-job-banner' ), 'easyPages_jobs_Banner_Image', 'page', 'side', 'low' );
+}
+$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+$template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
+
+
+add_action('admin_init','my_meta_init');
+function my_meta_init()
+{
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
+  // check for a template type
+  if ($template_file == 'page-template-careers.php.php')
+  {
+    add_meta_box( 'easyPages', __( 'Banner Image', 'easyPages-job-banner' ), 'easyPages_jobs_Banner_Image', 'page', 'side', 'low' );
+  }
 }
