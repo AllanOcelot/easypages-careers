@@ -1,0 +1,108 @@
+.easyPagesCareer-page-banner{
+  float:left;
+  width:100%;
+  height:auto;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-attachment: fixed;
+  background-image: url('http://i.imgur.com/k2W7mDb.png');
+}
+.easyPagesCareer-page-banner h1{
+    float:left;
+    width:100%;
+    font-size:36px;
+    color:#fff;
+    margin:120px 0;
+    text-align:center;
+}
+
+
+/* This plugin wrapper uses the same width as bootstrap */
+.easyPagesCareer-wrapper{
+  width: 1170px;
+  display:block;
+  margin:0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+@media screen and (max-width: 1024px){
+  .easyPagesCareer-wrapper{
+    width: 970px;
+  }
+}
+@media screen and (max-wdith: 990px){
+  .easyPagesCareer-wrapper{
+    width: 100%;
+  }
+}
+
+
+/* the introduction on the careers page */
+.easyPagesCareer-introduction{
+  float:left;
+  width:100%;
+  height:auto;
+  padding: 150px 0;
+  color:#000;
+}
+.easyPagesCareer-introduction h2{
+  float:left;
+  width:100%;
+  font-size:36px;
+  margin:0 0 5px 0;
+  padding:0;
+  cursor:default;
+}
+.easyPagesCareer-introduction p{
+  float:left;
+  width:100%;
+  height:auto;
+  line-height:26px;
+  font-size:16px;
+  margin:0 0 20px 0;
+  cursor:default;
+}
+.easyPagesCareer-introduction p:last-of-type{
+  margin-bottom:0;
+}
+
+.easyPagesCareer-companyPhotos{
+  float:left;
+  width:100%;
+  height:auto;
+  max-height: 500px;
+  overflow:hidden;
+}
+.easyPagesCareer-companyPhotos img{
+  float:left;
+  width:33.3%;
+  height:auto;
+  margin:0;
+  cursor:default;
+}
+
+.easyPagesCareer-currentPositions{
+  float:left;
+  width:100%;
+  padding:100px 0;
+}
+.easyPagesCareer-currentPositions h3{
+  float:left;
+  width:100%;
+  font-size:36px;
+  margin-bottom:0;
+}
+.easyPagesCareer-currentPositions ul{
+  float:left;
+  width:100%;
+  height:auto;
+  padding:0;
+  margin:0;
+}
+.easyPagesCareer-currentPositions ul li{
+  float:left;
+  width:100%;
+  padding: 20px;
+  background-color:#fff;
+  margin-bottom:1px;
+}
