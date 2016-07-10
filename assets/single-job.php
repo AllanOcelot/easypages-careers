@@ -9,26 +9,39 @@
 <div class="easyPagesCareer-job-information">
   <div class="easyPagesCareer-wrapper">
     <div class="easyPages-job-content">
-      <h2>What we are looking for:</h2>
-      <div class="block">
-        <?php echo the_content(); ?>
-      </div>
-      <h2>What we offer:</h2>
-      <div class="block">
-        <?php echo the_content(); ?>
-      </div>
+      <?php $job_description = get_post_meta( $post->ID, 'easyPagesJobsLookingFor', true );
+      if ($job_description != null) { ?>
+        <h2>What we are looking for:</h2>
+        <div class="block">
+          <?php echo $job_description; ?>
+        </div>
+      <?php
+      }else{
+        echo "<h2>Sadly, we have no information about this job!</h2>";
+      } ?>
+      <?php $what_we_offer = get_post_meta( $post->ID, 'easyPagesWhatWeOffer', true );
+      if ($what_we_offer != null) { ?>
+        <h2>What we offer:</h2>
+        <div class="block">
+          <?php echo $what_we_offer; ?>
+        </div>
+      <?php
+      }else{
+      } ?>
 
-      <form class="easyPages-job-application" action="index.html" method="post">
+
+
+      <form class="easyPages-job-application" id="job_application_form" action="<?php echo site_url(); ?>/wp-content/plugins/easypages-careers/assets/jobs_application_mailer.php" method="post">
         <div class="half">
           <label for="full_name">Full Name:</label>
           <div class="input-container name">
-            <input type="text" name="full_name" id="easyPages_firstName" value="">
+            <input type="text" name="full_name" required id="easyPages_fullName" value="">
           </div>
         </div>
         <div class="half">
           <label for="user_email">Email Address:</label>
           <div class="input-container email">
-            <input type="text" name="user_email" id="easyPages_email" value="">
+            <input type="text" name="user_email" required id="easyPages_email" value="">
           </div>
         </div>
         <div class="half">
@@ -40,10 +53,11 @@
           <div class="upload-button CV" id="CV_upload">
             Upload your CV
           </div>
+          <input type="file" required name="cv_upload" id="CV_upload_input" class="hidden_input" value="">
         </div>
         <div class="full">
           <div class="easyPagesSubmit">
-            <input type="submit" name="name" value="Submit your application">
+            <button  class="button" name="name" value="Submit your application">Submit Your Application</button>
           </div>
         </div>
       </form>

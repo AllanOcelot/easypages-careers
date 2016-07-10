@@ -20,6 +20,18 @@
    wp_enqueue_style('easyPagesJobsStyles');
  }
 add_action( 'wp_enqueue_scripts', 'easyPagesJobsStyles' );
+
+//Hook in the Meta for the image upload
+function easyJobs_JS($post) {
+    global $post;
+    if ($post->post_type == "easypages_jobs"){
+        wp_enqueue_media();
+        wp_register_script( 'job_application_script' , plugin_dir_url( __FILE__ ) . '/assets/job_application.js', array( 'jquery' ), NULL, false );
+        wp_enqueue_script( 'job_application_script'  );
+    }
+}
+add_action( 'the_post',  'easyJobs_JS'  );
+ 
 ############################################################
 #
 #
@@ -118,32 +130,79 @@ add_filter('single_template', 'easyPagesCustomSingle');
 #######################################################################
 ###### Register any Meta inputs on the page templates #################
 #######################################################################
-function easyPages_jobs_Banner_Image( $post ) {
-  wp_nonce_field( basename( __FILE__ ), 'easyStaff_nonce2' );
-  $easyPages_stored_meta_image = get_post_meta( $post->ID );
-  ?>
-  <p>
-    <input type="text" name="meta-banner-image" id="banner-image" value="<?php if ( isset ( $easyPages_stored_meta_image['banner-image-upload'] ) ) echo $easyPages_stored_meta_image['banner-image-upload'][0]; ?>" />
-    <input type="button" id="banner-image-upload" class="button" value="<?php _e( 'Choose or Upload an Image', 'easyPages-textdomain' )?>" />
-  </p>
+function easyPages_jobs_meta_box_markup($post){
+  wp_nonce_field( basename( __FILE__ ), 'easyPages_jobs_nonce' );
+  //Get any existing metadata attached to this post and store it
+  $easyPages_meta = get_post_meta( $post->ID );
+
+  var_dump($easyPages_meta);?>
+  <div class="custom-banner-upload">
+    <input type="text" name="banner-image" id="banner-image" value="<?php if ( isset ( $easyPages_meta['banner-image'] ) ) echo $easyPages_meta['banner-image'][0]; ?>" />
+  </div>
+
+
   <?php
-}
-
-function easyPages_custom_meta() {
-    add_meta_box( 'easyPages', __( 'Banner Image', 'easyPages-job-banner' ), 'easyPages_jobs_Banner_Image', 'page', 'side', 'low' );
-}
-$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-$template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
-
-
-add_action('admin_init','my_meta_init');
-function my_meta_init()
-{
-  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-  $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
-  // check for a template type
-  if ($template_file == 'page-template-careers.php.php')
-  {
-    add_meta_box( 'easyPages', __( 'Banner Image', 'easyPages-job-banner' ), 'easyPages_jobs_Banner_Image', 'page', 'side', 'low' );
+  #Job Description
+  if ( isset ( $easyPages_meta['easyPagesJobsLookingFor'])){
+    //If it has content, pop it in
+    $content1 = $easyPages_meta['easyPagesJobsLookingFor'][0];
+  }else{
+    //Else, we will give the user a hint
+    $content1 = "Provide an indepth description of what your ideal employee will be like, what skills will they have?";
   }
+  wp_editor( $content1, 'easyPagesJobsLookingFor' );
+
+
+  #What we offer
+  if ( isset ( $easyPages_meta['easyPagesWhatWeOffer'])){
+    //If it has content, pop it in
+    $content2 = $easyPages_meta['easyPagesWhatWeOffer'][0];
+  }else{
+    //Else, we will give the user a hint
+    $content2 = "Provide an indepth description of what you can offer - why should they work here?";
+  }
+  wp_editor( $content2, 'easyPagesWhatWeOffer' );
+
 }
+
+function add_custom_meta_box()
+{
+    add_meta_box("primary-meta-container", "Job Writeup", "easyPages_jobs_meta_box_markup", "easyPages_jobs", "normal", "high", null);
+}
+
+add_action("add_meta_boxes", "add_custom_meta_box");
+
+
+
+
+
+function save_custom_meta($post_id)
+{
+    if (!isset($_POST["easyPages_jobs_nonce"]) || !wp_verify_nonce($_POST["easyPages_jobs_nonce"], basename(__FILE__)))
+        return $post_id;
+
+    if(!current_user_can("edit_post", $post_id))
+        return $post_id;
+
+    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE){
+        return $post_id;
+    }
+
+
+    if(isset( $_POST['banner-image'])){
+      update_post_meta( $post_id, 'banner-image', $_POST[ 'banner-image' ] );
+    }
+    if(isset( $_POST['easyPagesJobsLookingFor'])){
+      update_post_meta( $post_id, 'easyPagesJobsLookingFor', $_POST[ 'easyPagesJobsLookingFor' ] );
+    }
+    if(isset( $_POST['easyPagesWhatWeOffer'])){
+      update_post_meta( $post_id, 'easyPagesWhatWeOffer', $_POST[ 'easyPagesWhatWeOffer' ] );
+    }
+
+
+
+
+}
+
+
+add_action("save_post", "save_custom_meta", 10 , 10);
