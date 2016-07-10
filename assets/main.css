@@ -305,6 +305,8 @@
     border:1px solid #cccccc;
     border-radius:4px;
     background-color:#fff;
+    overflow:hidden;
+    position:relative;
   }
   .easyPages-job-application .full{
     float:left;
@@ -358,8 +360,10 @@
     }
 
   .easyPages-job-application .hidden_input{
-    display:none;
-  }  
+    position:absolute;
+    left:-5000px;
+    bottom:-5000px;
+  }
 
 
   .easyPages-job-application .upload-button{

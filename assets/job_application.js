@@ -1,4 +1,12 @@
 jQuery(document).ready(function( $ ) {
+
+  //Upload a file functions (As we use fancy buttons and not inputs ;)
+  $('#cover_upload').click(function(){
+    alert('test');
+    $('#cover_upload_input').trigger('click');
+  });
+
+
   // Get the form.
   var form = $('#job_application_form');
 
