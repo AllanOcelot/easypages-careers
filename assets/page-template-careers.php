@@ -15,13 +15,6 @@
   </div>
 </div>
 
-<!-- Company photos , if full screen do not display the wrapper -->
-<div class="easyPagesCareer-companyPhotos">
-  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false" />
-  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false"/>
-  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false"/>
-</div>
-
 
 <!-- Current position container -->
 <div class="easyPagesCareer-currentPositions">
@@ -55,6 +48,15 @@
         ?>
     </div>
 </div>
+
+
+<!-- Company photos , if full screen do not display the wrapper -->
+<div class="easyPagesCareer-companyPhotos">
+  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false" />
+  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false"/>
+  <img src="http://i.imgur.com/2yu7seo.png" alt="Example" draggable="false"/>
+</div>
+
 
 <?php endwhile; ?>
 

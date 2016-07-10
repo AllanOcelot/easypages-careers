@@ -9,16 +9,61 @@
 <div class="easyPagesCareer-job-information">
   <div class="easyPagesCareer-wrapper">
     <div class="easyPages-job-content">
-      <?php echo the_content(); ?>
+      <h2>What we are looking for:</h2>
+      <div class="block">
+        <?php echo the_content(); ?>
+      </div>
+      <h2>What we offer:</h2>
+      <div class="block">
+        <?php echo the_content(); ?>
+      </div>
+
+      <form class="easyPages-job-application" action="index.html" method="post">
+        <div class="half">
+          <label for="full_name">Full Name:</label>
+          <div class="input-container name">
+            <input type="text" name="full_name" id="easyPages_firstName" value="">
+          </div>
+        </div>
+        <div class="half">
+          <label for="user_email">Email Address:</label>
+          <div class="input-container email">
+            <input type="text" name="user_email" id="easyPages_email" value="">
+          </div>
+        </div>
+        <div class="half">
+          <div class="upload-button cover-letter" id="cover_upload">
+            Upload a cover letter
+          </div>
+        </div>
+        <div class="half">
+          <div class="upload-button CV" id="CV_upload">
+            Upload your CV
+          </div>
+        </div>
+        <div class="full">
+          <div class="easyPagesSubmit">
+            <input type="submit" name="name" value="Submit your application">
+          </div>
+        </div>
+      </form>
+
     </div>
+
     <div class="easyPages-job-sidebar">
       <ul class="info">
         <li><span class="title">Job Title: </span><?php echo the_title(); ?></li>
+        <li><span class="title">Location: </span>Manchester</li>
         <li><span class="title">Wage offered: </span> £25,000</li>
         <li><span class="title">Start Date: </span> ASAP</li>
       </ul>
+      <div class="easyPages-job-apply">
+        Apply Now
+      </div>
     </div>
   </div>
+
+
 </div>
 
 <?php endwhile; ?>
