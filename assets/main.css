@@ -333,6 +333,8 @@
     .easyPages-job-application .input-container input{
       margin:0;
       padding:0 20px 0 40px;
+      color: #000 !important; 
+      border: 2px solid #eaedf2;
     }
     .easyPages-job-application .input-container.name:after{
       position:absolute;
@@ -359,12 +361,20 @@
       content:"\f003";
     }
 
+   /*Validation styling on text inputs */
+   .easyPages-job-application .input-container input.error{
+     border:2px solid red;
+   }
+   .easyPages-job-application .input-container input.valid{
+     border: 2px solid green;
+   }
+
+
   .easyPages-job-application .hidden_input{
     position:absolute;
     left:-5000px;
     bottom:-5000px;
   }
-
 
   .easyPages-job-application .upload-button{
     background-color: #4baeba;
@@ -395,6 +405,23 @@
       line-height:40px;
       content:"\f0f6";
     }
+
+  /* If the user removes a file or its not a valid type, display an error */
+  .easyPages-job-application .upload-button.input-good{
+    background-color: green;
+  }
+    .easyPages-job-application .upload-button.input-good:after{
+      content:'\f00c'
+    }
+
+  /* If the user removes a file or its not a valid type, display an error */
+  .easyPages-job-application .upload-button.input-error{
+    background-color: red;
+  }
+    .easyPages-job-application .upload-button.input-error:after{
+      content:'\f00d'
+    }
+
 
   .easyPages-job-application .easyPagesSubmit{
     float:left;

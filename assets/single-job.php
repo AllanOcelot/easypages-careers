@@ -48,13 +48,13 @@
           <div class="upload-button cover-letter" id="cover_upload">
             Upload a cover letter
           </div>
-          <input type="file" required name="cv_upload" id="cover_upload_input" class="hidden_input" value="">
+          <input type="file" name="cv_upload" id="cover_upload_input" class="hidden_input" value="">
         </div>
         <div class="half">
           <div class="upload-button CV" id="CV_upload">
             Upload your CV
           </div>
-          <input type="file" required name="cv_upload" id="CV_upload_input" class="hidden_input" value="">
+          <input type="file" name="cv_upload" id="CV_upload_input" class="hidden_input" value="">
         </div>
         <div class="full">
           <div class="easyPagesSubmit">
