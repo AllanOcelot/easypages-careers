@@ -256,6 +256,7 @@
     height:auto;
     margin:0 0 10px 0;
     font-size:16px;
+    list-style: none;
   }
     .easyPages-job-sidebar ul.info li:last-of-type{
       margin-bottom:0;
@@ -282,6 +283,7 @@
     text-align:center;
     font-size:20px;
     color:#fff;
+    font-weight: bold;
     border-right:1px solid #cccccc;
     border-left:1px solid #cccccc;
     border-bottom: 1px solid #65a446;
@@ -331,9 +333,11 @@
     margin:0 0 20px 0;
   }
     .easyPages-job-application .input-container input{
+      float:left;
+      height: 40px;
       margin:0;
       padding:0 20px 0 40px;
-      color: #000 !important; 
+      color: #000 !important;
       border: 2px solid #eaedf2;
     }
     .easyPages-job-application .input-container.name:after{
@@ -391,7 +395,13 @@
     text-align: left;
     width: 100%;
     position:relative;
+    transition: all 0.6s;
   }
+      .easyPages-job-application .upload-button:hover{
+        background-color: #5ed0de;
+        transition: all 0.3s;
+        cursor: pointer; 
+      }
 
     .easyPages-job-application .upload-button:after{
       position:absolute;
@@ -442,4 +452,11 @@
         border-bottom: 1px solid #65a446;
         transition:all 0.6s;
         cursor: pointer;
+        padding: 0;
+        border: none;
+      }
+      .easyPages-job-application .easyPagesSubmit button:hover{
+        background-color:#a9f583;
+        text-decoration: underline;
+        transition: all 0.3s;
       }
